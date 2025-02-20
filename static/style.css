@@ -1,0 +1,96 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f2f5;
+    background-image: url("bgwp.jpg");
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.container {
+    width: 80%;
+    max-width: 900px;
+    background: #f5f4ed;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.logo img {
+    width: 180px;
+    margin-bottom: 20px;
+}
+
+.login-content {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.instructions {
+    width: 55%;
+
+}
+
+.instructions h2 {
+    margin-bottom: 10px;
+    font-size: 22px;
+}
+
+.instructions ol {
+    padding-left: 20px;
+    padding: 30px;
+}
+
+.instructions a {
+    display: block;
+    color: green;
+    margin-top: 10px;
+    text-decoration: none;
+}
+
+.qr-box {
+    width: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.qr-box img {
+    width: 200px;
+    height: 200px;
+    background: #ccc;
+    border-radius: 10px;
+}
+
+.stay-logged {
+    margin-top: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.stay-logged input {
+    margin-right: 5px;
+}
+
+@media (max-width: 768px) {
+    .login-content {
+        flex-direction: column;
+        align-items: center;
+    }
+    .instructions, .qr-box {
+        width: 100%;
+        text-align: center;
+    }
+}
+/* Reset default styles */
+
+

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Web Clone - Login</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <div class="logo">
+                <img src="logo.png" alt="WhatsApp">
+            </div>
+            <div class="login-content">
+                <div class="instructions">
+                    <h2>Log into WhatsApp Web</h2>
+                    <p>Message privately with friends and family using WhatsApp on your browser.</p>
+                    <ol>
+                        <li>Open WhatsApp on your phone</li>
+                        <li>Tap <b>Menu</b> on Android, or <b>Settings</b> on iPhone</li>
+                        <li>Tap <b>Linked devices</b> and then <b>Link a device</b></li>
+                        <li>Point your phone at this screen to scan the QR code</li>
+                    </ol>
+                    <a href="#">Need help getting started?</a>
+                    <p><a href="{{ url_for('phlogin') }}">Log in with phone number</a></p>
+
+                </div>
+                <div class="qr-box">
+              <img id="qr-image" src="data:image/png;base64,{{ qr_base64 }}" alt="QR Code">
+
+                    <div class="stay-logged">
+                        <input type="checkbox" id="stayLoggedIn" checked>
+                        <label for="stayLoggedIn">Stay logged in on this browser</label>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var socket = io();  // Initialize WebSocket connection
+    
+        setInterval(function() {
+            socket.emit('refresh_qr');  // Request new QR code every 5 seconds
+        }, 5000);
+    
+        socket.on('update_qr', function(data) {
+            document.getElementById('qr-image').src = "data:image/png;base64," + data.qr_base64;
+        });
+    </script>
+
+
+</body>
+</html>

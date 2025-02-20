@@ -1,0 +1,139 @@
+/* Import Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+
+/* Full Page Styling */
+body {
+    background-color: #EAE6DF;
+    background-image: url(bgwp.jpg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+/* Container */
+.container {
+    background-color: white;
+    width: 80%;
+    max-width: 900px;
+    padding: 30px;
+    display: flex;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Left Side - Info Section */
+.info-section {
+    width: 55%;
+    padding: 20px;
+}
+
+.info-section h2 {
+    font-size: 22px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
+
+.info-section p {
+    font-size: 15px;
+    color: #4A4A4A;
+    margin-bottom: 15px;
+}
+
+.info-section ol {
+    list-style: none;
+    padding-left: 0;
+    counter-reset: steps;
+}
+
+.info-section ol li {
+    counter-increment: steps;
+    font-size: 15px;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.info-section ol li::before {
+    content: counter(steps) ".";
+    font-weight: bold;
+    color: #25D366;
+    margin-right: 8px;
+}
+
+/* Links */
+.help-link {
+    display: block;
+    margin: 10px 0;
+    color: #007BFF;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.phone-login {
+    display: flex;
+    align-items: center;
+    color: #007BFF;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: bold;
+}
+
+.phone-login i {
+    margin-left: 5px;
+}
+
+/* Right Side - QR Code Section */
+.qr-section {
+    width: 45%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-left: 1px solid #ddd;
+    padding: 20px;
+}
+
+.qr-code {
+    width: 180px;
+    height: 180px;
+    border-radius: 5px;
+}
+
+/* Stay Logged In */
+.stay-logged {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    margin-top: 10px;
+    color: #4A4A4A;
+}
+
+.stay-logged input {
+    margin-right: 5px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .container {
+        flex-direction: column;
+        width: 90%;
+    }
+
+    .info-section, .qr-section {
+        width: 100%;
+        text-align: center;
+        border: none;
+    }
+
+    .qr-section {
+        padding-top: 20px;
+    }
+}

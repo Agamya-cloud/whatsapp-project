@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chat - WhatsApp Web Clone</title>
+</head>
+<body>
+    <h2>Welcome, {{ user.full_name }}!</h2>
+    <p>You are chatting with {{ receiver.full_name }}</p>
+
+    <form method="POST" action="{{ url_for('send_message', receiver_id=receiver.id) }}">
+        <input type="text" name="message" placeholder="Type your message..." required>
+        <button type="submit">Send</button>
+    </form>
+
+    <a href="{{ url_for('logout') }}">Logout</a>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
+<script>
+    var socket = io.connect("http://127.0.0.1:5000");
+
+    socket.on("receive_message", function(data) {
+        let chatBox = document.getElementById("chat-box");
+        chatBox.innerHTML += `<p><b>${data.sender_id}:</b> ${data.message}</p>`;
+    });
+
+    function sendMessage() {
+        let messageInput = document.getElementById("message-input").value;
+        let receiverId = document.getElementById("receiver-id").value;
+
+        socket.emit("send_message", {
+            "receiver_id": receiverId,
+            "message": messageInput
+        });
+
+        document.getElementById("message-input").value = "";
+    }
+</script>
+</body>
+</html>
+
+
+
+

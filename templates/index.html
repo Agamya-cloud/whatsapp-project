@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WhatsApp Web Clone</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styling.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="login-box">
+            <h2>Log into WhatsApp Web</h2>
+            <p>Message privately with friends and family using WhatsApp on your browser.</p>
+            <ol>
+                <li>Open WhatsApp on your phone</li>
+                <li>Tap <b>Menu</b> on Android, or <b>Settings</b> on iPhone</li>
+                <li>Tap <b>Linked devices</b> and then <b>Link a device</b></li>
+                <li>Point your phone at this screen to scan the QR code</li>
+            </ol>
+            <p><a href="{{ url_for('signup') }}" class="signup-link">Already an existing user? Sign up</a></p>
+            <p><a href="{{ url_for('phone_login') }}">Log in with phone number</a></p>
+        </div>
+        <div class="qr-box">
+            <img src="qr-placeholder.png" alt="QR Code" class="qr-code">
+            <div class="stay-logged-in">
+                <input type="checkbox" id="stayLoggedIn" checked>
+                <label for="stayLoggedIn">Stay logged in on this browser</label>
+            </div>
+        </div>
+    </div>
+    <script>
+        function loginWithPhone() {
+            let phoneNumber = document.getElementById("phoneNumber").value;
+            
+            if (phoneNumber === "") {
+                alert("Please enter your phone number");
+                return;
+            }
+
+            // Simulating a login process (Replace this with actual backend authentication)
+            alert("Logging in with phone number: " + phoneNumber);
+            window.location.href = "home.html";  // Redirect to home page after login
+        }
+    </script>
+</body>
+</html>
