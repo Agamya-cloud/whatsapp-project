@@ -1,123 +1,92 @@
-/* Import Google Font */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap');
-
-* {
+/* General Page Styling */
+body {
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
-    font-family: 'Roboto', sans-serif;
-}
-
-/* Full Page Styling */
-body {
-    background-color: #EAE6DF;
-    background-image: url(bgwp.jpg);
+    background-color: #e9edef;
     display: flex;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     height: 100vh;
+    background-image: url(bgwp.jpg);
 }
 
-/* Container */
+/* Main Container */
 .container {
-    background-color: white;
+    display: flex;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    overflow: hidden;
     width: 80%;
     max-width: 900px;
-    padding: 30px;
+}
+
+/* Left Side - Instructions */
+.login-box {
+    width: 50%;
+    padding: 40px;
     display: flex;
-    border-radius: 12px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    flex-direction: column;
+    justify-content: center;
 }
 
-/* Left Side - Info Section */
-.info-section {
-    width: 55%;
-    padding: 20px;
-}
-
-.info-section h2 {
-    font-size: 22px;
-    font-weight: 500;
+.login-box h2 {
+    color: #222;
+    font-size: 24px;
     margin-bottom: 10px;
 }
 
-.info-section p {
-    font-size: 15px;
-    color: #4A4A4A;
+.login-box p {
+    color: #555;
+    font-size: 14px;
     margin-bottom: 15px;
 }
 
-.info-section ol {
-    list-style: none;
-    padding-left: 0;
-    counter-reset: steps;
-}
-
-.info-section ol li {
-    counter-increment: steps;
-    font-size: 15px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
-}
-
-.info-section ol li::before {
-    content: counter(steps) ".";
-    font-weight: bold;
-    color: #25D366;
-    margin-right: 8px;
-}
-
-/* Links */
-.help-link {
-    display: block;
-    margin: 10px 0;
-    color: #007BFF;
-    text-decoration: none;
+.login-box ol {
+    padding-left: 20px;
     font-size: 14px;
+    color: #444;
 }
 
-.phone-login {
-    display: flex;
-    align-items: center;
-    color: #007BFF;
+.signup-link {
+    color: #128C7E;
     text-decoration: none;
-    font-size: 15px;
     font-weight: bold;
 }
 
-.phone-login i {
-    margin-left: 5px;
+.signup-link:hover {
+    text-decoration: underline;
 }
 
-/* Right Side - QR Code Section */
-.qr-section {
-    width: 45%;
+/* Right Side - QR Code */
+.qr-box {
+    width: 50%;
+    background-color: #f8f9fa;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     border-left: 1px solid #ddd;
-    padding: 20px;
+    padding: 30px;
 }
 
 .qr-code {
-    width: 180px;
-    height: 180px;
-    border-radius: 5px;
+    width: 250px;
+    height: 250px;
+    margin-bottom: 15px;
 }
 
-/* Stay Logged In */
-.stay-logged {
+/* Stay Logged In Checkbox */
+.stay-logged-in {
     display: flex;
     align-items: center;
     font-size: 14px;
-    margin-top: 10px;
-    color: #4A4A4A;
+    color: #444;
 }
 
-.stay-logged input {
-    margin-right: 5px;
+.stay-logged-in input {
+    margin-right: 8px;
 }
 
 /* Responsive Design */
@@ -126,14 +95,19 @@ body {
         flex-direction: column;
         width: 90%;
     }
-
-    .info-section, .qr-section {
+    
+    .login-box, .qr-box {
         width: 100%;
-        text-align: center;
-        border: none;
+        padding: 30px;
     }
 
-    .qr-section {
-        padding-top: 20px;
+    .qr-box {
+        border-left: none;
+        border-top: 1px solid #ddd;
+    }
+
+    .qr-code {
+        width: 200px;
+        height: 200px;
     }
 }

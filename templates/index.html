@@ -17,11 +17,12 @@
                 <li>Tap <b>Linked devices</b> and then <b>Link a device</b></li>
                 <li>Point your phone at this screen to scan the QR code</li>
             </ol>
-            <p><a href="{{ url_for('signup') }}" class="signup-link">Already an existing user? Sign up</a></p>
+            <p><a href="{{ url_for('signup') }}" class="signup-link">New User! Sign up </a></p>
             <p><a href="{{ url_for('phone_login') }}">Log in with phone number</a></p>
         </div>
         <div class="qr-box">
-            <img src="qr-placeholder.png" alt="QR Code" class="qr-code">
+            <img src="{{ url_for('static', filename='QR code.svg') }}" alt="QR Code" class="qr-code">
+
             <div class="stay-logged-in">
                 <input type="checkbox" id="stayLoggedIn" checked>
                 <label for="stayLoggedIn">Stay logged in on this browser</label>

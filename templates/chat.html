@@ -1,44 +1,91 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Chat - WhatsApp Web Clone</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>WhatsApp Clone</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.6.0/socket.io.js"></script>
+  <link rel="stylesheet" href="{{ url_for('static', filename='chat.css') }}">
 </head>
 <body>
-    <h2>Welcome, {{ user.full_name }}!</h2>
-    <p>You are chatting with {{ receiver.full_name }}</p>
+  <div class="main-container">
+    <!-- Left Side (Chat List) -->
+    <div class="left-container">
+      <div class="header">
+        <div class="user-img">
+          <img class="dp" src="/static/uploads/{{ user.profile_pic or 'default.png' }}" alt="Profile Picture">
+        </div>
+        <h3>{{ user.full_name }}</h3>
+        <a href="{{ url_for('logout') }}">Logout</a>
+      </div>
 
-    <form method="POST" action="{{ url_for('send_message', receiver_id=receiver.id) }}">
-        <input type="text" name="message" placeholder="Type your message..." required>
-        <button type="submit">Send</button>
-    </form>
+      <div class="search-container">
+        <input type="text" placeholder="Search or start new chat">
+      </div>
 
-    <a href="{{ url_for('logout') }}">Logout</a>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.4.1/socket.io.js"></script>
-<script>
-    var socket = io.connect("http://127.0.0.1:5000");
+      <div class="chat-list">
+        {% for contact in contacts %}
+          <div class="chat-box" onclick="loadChat(`{{ contact.id }}` ,'{{ contact.full_name }}')">
+            <img src="/static/uploads/{{ contact.profile_pic or 'default.png' }}" alt="Profile">
+            <h4>{{ contact.full_name }}</h4>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
 
-    socket.on("receive_message", function(data) {
-        let chatBox = document.getElementById("chat-box");
-        chatBox.innerHTML += `<p><b>${data.sender_id}:</b> ${data.message}</p>`;
+    <!-- Right Side (Chat Window) -->
+    <div class="right-container">
+      <h4 id="chat-header">Select a Chat</h4>
+      <div class="chat-container" id="chat-messages"></div>
+
+      <div class="chatbox-input">
+        <input type="text" id="message-input" placeholder="Type a message">
+        <button id="send-btn">Send</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const socket = io.connect(location.origin);
+    let currentUserId = `{{ user.id }}`;
+    let currentReceiverId = null;
+
+    function loadChat(receiverId, receiverName) {
+      currentReceiverId = receiverId;
+      document.getElementById("chat-header").innerText = receiverName;
+      document.getElementById("chat-messages").innerHTML = "";
+
+      fetch(`/get_messages/${receiverId}`)
+        .then(response => response.json())
+        .then(messages => {
+          messages.forEach(msg => addMessage(msg.sender_id === currentUserId ? "You" : receiverName, msg.message));
+        });
+    }
+
+    function addMessage(sender, message) {
+      let chatMessages = document.getElementById("chat-messages");
+      let msgDiv = document.createElement("div");
+      msgDiv.innerText = sender + ": " + message;
+      chatMessages.appendChild(msgDiv);
+    }
+
+    document.getElementById("send-btn").addEventListener("click", function () {
+      let messageInput = document.getElementById("message-input");
+      let message = messageInput.value.trim();
+
+      if (message && currentReceiverId) {
+        addMessage("You", message);
+        messageInput.value = "";
+
+        socket.emit("send_message", { sender_id: currentUserId, receiver_id: currentReceiverId, message: message });
+      }
     });
 
-    function sendMessage() {
-        let messageInput = document.getElementById("message-input").value;
-        let receiverId = document.getElementById("receiver-id").value;
-
-        socket.emit("send_message", {
-            "receiver_id": receiverId,
-            "message": messageInput
-        });
-
-        document.getElementById("message-input").value = "";
-    }
-</script>
+    socket.on("receive_message", function (data) {
+      if (data.receiver_id === currentUserId) {
+        addMessage("User", data.message);
+      }
+    });
+  </script>
 </body>
 </html>
-
-
-
-
